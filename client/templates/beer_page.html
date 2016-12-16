@@ -1,0 +1,41 @@
+<div layout="column" layout-fill>
+	<div flex-xs="25" flex="40" flex-gt-md="60" layout="column" ef-masthead image={{beer.image[0].url.original}} ng-if="beer" layout-align="end start" layout-padding>
+		<div class="md-title transparent ef-masthead-title" md-colors="{color:'accent',background:'background'}">
+			{{beer.name}}
+		</div>
+	</div>
+	<div>
+		<md-chips ng-model="beer.ingredients" md-transform-chip="transformChip($chip)" md-require-match="true" md-on-add="save()" md-on-remove="save()">
+			<md-autocomplete
+			md-selected-item="selectedItem"
+			md-search-text="searchText"
+			md-items="item in querySearch(searchText)"
+			md-item-text="item.name"
+			md-autoselect
+			placeholder="Ajouter un ingrédient">
+				<span md-highlight-text="searchText">{{item.name}}</span>
+			</md-autocomplete>
+			<md-chip-template md-colors="{fill: 'accent-A400'}">
+				<span> <strong>{{$chip.name}}</strong> <!-- <em>(···)</em> --> </span>
+			</md-chip-template>
+		</md-chips>
+	</div>
+	<div>
+		<md-chips placeholder="Ajouter un tag" md-enable-chip-edit="true" ng-model="beer.tags" md-transform-chip="transformChip($chip)" md-on-add="saveTag($index,$chip)" md-on-remove="save()">
+			<md-autocomplete
+			md-selected-item="selectedTag"
+			md-search-text="searchTag"
+			md-items="item in tagSearch(searchTag)"
+			md-item-text="item.name"
+			md-autoselect
+			md-select-on-focus
+			placeholder="Ajouter un tag">
+				<span md-highlight-text="searchTag">{{item.name}}</span>
+			</md-autocomplete>
+			<md-chip-template md-colors="{fill: 'accent-A400'}">
+				<span><strong>{{$chip.name}}</strong></span>
+			</md-chip-template>
+		</md-chips>
+	</div>
+</div>
+

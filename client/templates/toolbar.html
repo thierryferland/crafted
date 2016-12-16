@@ -1,0 +1,34 @@
+<md-toolbar md-colors="{background: 'background-200'}">
+	<div class="md-toolbar-tools">
+		<md-button class="md-icon-button" aria-label="Transparency" ui-sref="home">
+			<md-icon md-svg-icon="/images/hop.svg" md-colors="{fill: 'primary-500'}" ></md-icon>
+		</md-button>
+		<span class="md-display-1" md-colors="{color: 'primary-500'}" style="font-family: 'Indie Flower', cursive;">Crafted</span>
+		<span flex></span>
+		<md-button class="md-icon-button" aria-label="logistics" ng-click="showSurvey()" layout="column" layout-align="center center">
+			<md-icon md-svg-src="/images/ic_people_48px.svg" md-colors="{fill: 'primary'}" ></md-icon>
+		</md-button>
+		<md-button ng-hide="data.isSignedin" class="md-primary md-raised" aria-label="Sign In" ng-click="login()">
+			Sign In
+		</md-button>
+		<md-menu md-position-mode="target-right target">
+			<md-button ng-show="data.isSignedin" class="md-fab md-mini" aria-label="Sign Out" ng-click="openMenu($mdOpenMenu, $event)" style="padding:0 0;">
+				<img ng-src="{{user.picture||'images/ic_person_24px.svg'}}" style="width:100%; height: 100%;"/>
+			</md-button>
+			<md-menu-content width="3">
+				<md-menu-item>
+					<md-button aria-label="Go to facebook" ng-click="wizardFacebook()">
+						<md-icon md-svg-src="/images/facebook.svg" md-menu-align-target aria-label="Facebook"></md-icon>
+						Facebook Wizard
+					</md-button>
+				</md-menu-item>
+				<md-menu-divider></md-menu-divider>
+				<md-menu-item>
+					<md-button ng-click="logout()">
+						Sign Out
+					</md-button>
+				</md-menu-item>
+			</md-menu-content>
+		</md-menu>
+	</div>
+</md-toolbar>

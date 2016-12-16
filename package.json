@@ -1,0 +1,49 @@
+{
+  "name": "Crafted",
+  "version": "0.0.1",
+  "description": "All about crafted beers",
+  "main": "server/server.js",
+  "dependencies": {
+    "angular": "~1.5.3",
+    "angular-animate": "~1.5.2",
+    "angular-aria": "~1.5.2",
+    "angular-material": "^1.1.1",
+    "angular-messages": "^1.5.2",
+    "bcryptjs": "^2.3.0",
+    "body-parser": "^1.15.0",
+    "cors": "^2.7.1",
+    "express": "4.12.3",
+    "express-fileupload": "0.0.5",
+    "gulp-clone": "^1.0.0",
+    "jwt-simple": "^0.4.1",
+    "lwip": "^0.0.9",
+    "moment": "^2.14.1",
+    "mongoose": "4.0.3",
+    "morgan": "^1.7.0",
+    "ng-file-upload": "^12.2.12",
+    "ng-html5dragdrop": "^1.3.3",
+    "request": "^2.69.0",
+    "satellizer": "^0.14.1",
+    "wagner-core": "0.1.0"
+  },
+  "devDependencies": {
+    "browserify": "10.2.3",
+    "chai": "^3.4.1",
+    "gulp": "3.9.0",
+    "gulp-mocha": "2.0.1",
+    "gulp-browserify": "0.5.1",
+    "http-status": "0.1.8",
+    "karma": "0.13.19",
+    "karma-chai": "0.1.0",
+    "karma-chrome-launcher": "0.1.4",
+    "karma-mocha": "~0.1",
+    "mocha": "^2.3.4",
+    "superagent": "1.2.0",
+    "underscore": "1.5.2"
+  },
+  "scripts": {
+    "test-api": "gulp test-api",
+    "test-models": "gulp test-models",
+    "watch": "gulp watch"
+  }
+}

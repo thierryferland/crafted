@@ -1,0 +1,11 @@
+<md-subheader>
+	<ef-search items="beers" search-url="searchUrl" search-text="searchText"></ef-search>
+</md-subheader>
+<div layout="row" layout-wrap layout-align="center center">
+	<beer-beer-card ng-repeat="beer in beers | filter:searchText" ef-editable></beer-beer-card>
+</div>
+<div layout="column" layout-align="end end">
+	<md-button ng-click="add(searchText)" class="md-accent md-raised">
+		Add
+	</md-button>
+</div>

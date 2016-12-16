@@ -1,0 +1,170 @@
+.epd-btn-facebook {
+  color: #fff;
+  background-color: #3b5998;
+  border: 1px solid #335190;
+}
+
+.epd-btn-facebook:hover,
+.epd-btn-facebook:focus {
+  color: #fff;
+  background-color: #294786;
+}
+
+/*********************
+ * Card-like div
+ *********************/
+.epd-card {
+	max-width: 350px;
+	text-align: center;
+	border-radius: 10px 10px 10px 10px;
+}
+
+.ef-card {
+	max-width: 300px;
+	border-radius: 10px 10px 10px 10px;
+}
+
+.epd-card-limit {
+	min-width: 150px;
+	min-height: 150px;
+	text-align: center;
+	border-radius: 10px 10px 10px 10px;
+	border-style:dotted;
+}
+.ef-large-drop-box {
+	width: 184px;
+	height: 184px;
+}
+.ef-drop-box {
+	border-radius: 10px 10px 10px 10px;
+	border-style:dotted;
+	text-align: center;
+}
+.ef-small-drop-box {
+	width: 92px;
+	height: 92px;
+}
+
+/*********************
+ * Masthead
+ *********************/
+.ef-masthead-title {
+	border-radius: 0px 10px 0px 10px;
+}
+
+/*********************
+ * Icons
+ *********************/
+.ef-huge-icon {
+	font-size: 96px; 
+	height: 96px;
+	width:96px;
+	display: block;
+}
+
+.ef-big-icon {
+	font-size: 48px; 
+	height: 48px;
+	width: 48px;
+	display: block;
+}
+
+
+/*********************
+ * Buttons
+ *********************/
+.ef-huge-icon-button {
+	height: 112px;
+	width:112px;
+	border-radius: 50%;
+	padding: 8px;
+}
+
+.ef-big-icon-button {
+	height: 66px;
+	width: 66px;
+	border-radius: 50%;
+	padding: 8px;
+}
+
+.ef-tag-button {
+	font-size: 10px; 
+	min-height: 0;
+	line-height: 0;
+	min-width: 0;
+	border-radius: 5%;
+	padding: 8px;
+	margin: 2px;
+}
+
+
+
+/*********************
+ * Card
+ *********************/
+div.ef-card-image {
+	width: 300px;
+	height: 150px;
+}
+img.ef-card-image {
+	width: 300px;
+	height: 150px;
+}
+.ef-card-small-image {
+	width: 50px;
+	height: 50px;
+	border-radius: 10px 0px 0px 10px;
+}
+
+.ef-no-padding {
+	padding: 4px
+}
+
+.ef-no-margin {
+	margin: 0
+}
+
+.ef-small-margin {
+	margin: 4px
+}
+/*********************
+ * Drag Image
+ *********************/
+.ef-drag-image {
+    -ms-transform: rotate(7deg); /* IE 9 */
+    -webkit-transform: rotate(7deg); /* Chrome, Safari, Opera */
+    transform: rotate(7deg);
+    width: 50px;
+}
+
+/*********************
+ * Image
+ *********************/
+.contain {
+  object-fit: contain;
+}
+
+.cover {
+  object-fit: cover;
+}
+
+.scale-down {
+  object-fit: scale-down;
+}
+
+/*********************
+ * General
+ *********************/
+.transparent {
+	opacity: 0.92
+}
+
+md-input-container .md-errors-spacer {
+    min-height: 0;
+}
+
+.md-subheader .md-subheader-inner {
+	display: block;
+	padding: 0;
+}
+

@@ -1,0 +1,33 @@
+<md-card md-whiteframe="10" md-colors="::{background: 'default-background-50'}" style="max-width: 300px;">
+	<ef-photo-upload ng-if="produce.image.is_editing"></ef-photo-upload>
+	<div class="ef-card-image" ng-hide="produce.image.is_editing">
+		<img ng-src={{produce.small_image_url}} class="md-card-image ef-card-image cover" alt={{produce.name}}>
+		<md-button class="md-icon-button" aria-label="Edit" ng-click="editImage($index)" style="position:relative;bottom:150px;left:250px" ng-show="produce.is_editing">
+			<md-icon md-svg-icon="images/ic_mode_edit_48px.svg" md-colors="{fill: 'warn-300'}"></md-icon>
+		</md-button>
+	</div>
+	<md-card-actions layout="row" layout-align="end center">
+		<md-card-title class="ef-no-padding">
+			<md-card-title-text>
+				<span ng-hide="produce.is_editing">{{produce.name}}</span>
+				<form name="produceForm" ng-submit="save($index, produce._id)" ng-show="produce.is_editing"  class="ef-no-margin">
+					<md-input-container class="ef-no-margin">
+						<input name="name" ng-model="produce.name" ng-enter="save($index, produce._id)" aria-label="Produce" required md-no-asterisk>
+					</md-input-container>
+				</form>
+			</md-card-title-text>
+		</md-card-title>
+		<md-button class="md-icon-button" aria-label="Edit" ng-click="edit($index)" ng-hide="produce.is_editing">
+			<md-icon md-svg-icon="/images/ic_mode_edit_48px.svg" md-colors="{fill: 'accent-500'}"></md-icon>
+		</md-button>
+		<md-button class="md-icon-button" aria-label="Save" ng-click="save($index, produce._id)" ng-show="produce.is_editing">
+			<md-icon md-svg-icon="/images/ic_check_circle_48px.svg" md-colors="{fill: 'accent-500'}"></md-icon>
+		</md-button>
+		<md-button class="md-icon-button" aria-label="Delete" ng-click="delete(produce)" ng-hide="produce.is_editing">
+			<md-icon md-svg-icon="/images/ic_delete_48px.svg" md-colors="{fill: 'accent-500'}"></md-icon>
+		</md-button>
+		<md-button class="md-icon-button" aria-label="Cancel" ng-click="cancel($index)" ng-show="produce.is_editing">
+			<md-icon md-svg-icon="/images/ic_cancel_48px.svg" md-colors="{fill: 'accent-500'}"></md-icon>
+		</md-button>
+	</md-card-actions>
+</md-card>

@@ -1,0 +1,18 @@
+<div>
+	<form ng-submit="onSubmit(searchForm.autocompleteField)" name="searchForm">
+		<md-autocomplete
+		md-input-name="autocompleteField"
+		md-no-cache
+		md-selected-item="selectedItem"
+		md-search-text="searchText"
+		md-items="item in querySearch(searchText)"
+		md-item-text="item.name"
+		placeholder="Search"
+		md-search-text-change="searchTextChange(searchText)"
+		md-selected-item-change="selectedItemChange(searchForm.autocompleteField)">
+			<md-item-template>
+				<span md-highlight-text="searchText">{{item.name}}</span>
+			</md-item-template>
+		</md-autocomplete>
+	</form>
+</div>

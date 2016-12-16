@@ -1,0 +1,44 @@
+<md-card md-whiteframe="10" md-colors="::{background: 'default-background-50'}" style="max-width: 300px;">
+	<ef-photo-upload ng-if="beer.is_editing_image" image="beer.image[0]" show_drop_zone="beer.is_editing_image"></ef-photo-upload>
+	<div class="ef-card-image" ng-hide="beer.is_editing_image">
+		<a ui-sref="beer({name: beer.name})"  draggable="false"> <img ng-src={{beer.image[0].url.small}} class="md-card-image ef-card-image cover" alt={{beer.name}} draggable="false" style="opacity: {{beer.opacity}}"> </a>
+		<div layout="row" layout-align="space-between" style="position:relative;bottom:144px;right:0px" >
+			<div layout="column" layout-align="start start">
+				<md-button ng-repeat="tag in beer.tags" class="ef-tag-button" aria-label="tag.name" md-colors="{background: 'primary'}" ng-click="addTag(tag)">
+					{{tag.name}}
+				</md-button>
+			</div>
+			<md-button class="md-icon-button" aria-label="Edit" ng-click="editImage($index)" ng-show="beer.is_editing">
+				<md-icon md-svg-icon="images/ic_mode_edit_48px.svg" md-colors="{fill: 'warn-300'}"></md-icon>
+			</md-button>
+			<md-button class="md-icon-button" aria-label="Select" ng-click="select(beer)" ng-show="selectable">
+				<md-icon md-svg-icon="images/ic_add_box_48px.svg" md-colors="{fill: 'accent-500'}"></md-icon>
+			</md-button>
+		</div>
+	</div>
+
+	<md-card-actions layout="row" layout-align="end center">
+		<md-card-title class="ef-no-padding">
+			<md-card-title-text>
+				<span ng-hide="beer.is_editing">{{beer.name}}</span>
+				<form name="beerForm" ng-submit="save($index, produce._id)" ng-show="beer.is_editing"  class="ef-no-margin">
+					<md-input-container ng-show="beer.is_editing" class="ef-no-margin" required md-no-asterisk>
+						<input ng-model="beer.name" aria-label="Beer">
+					</md-input-container>
+				</form>
+			</md-card-title-text>
+		</md-card-title>
+		<md-button class="md-icon-button" aria-label="Edit" ng-click="edit($index)" ng-hide="beer.is_editing || !editable" ng-show="editable">
+			<md-icon md-svg-icon="images/ic_mode_edit_48px.svg" md-colors="{fill: 'accent-500'}"></md-icon>
+		</md-button>
+		<md-button class="md-icon-button" aria-label="Save" ng-click="save($index, beer._id)" ng-show="beer.is_editing">
+			<md-icon md-svg-icon="images/ic_check_circle_48px.svg" md-colors="{fill: 'accent-500'}"></md-icon>
+		</md-button>
+		<md-button class="md-icon-button" aria-label="Delete" ng-click="delete(beer)" ng-hide="beer.is_editing || !editable">
+			<md-icon md-svg-icon="images/ic_delete_48px.svg" md-colors="{fill: 'accent-500'}"></md-icon>
+		</md-button>
+		<md-button class="md-icon-button" aria-label="Cancel" ng-click="cancel($index)" ng-show="beer.is_editing">
+			<md-icon md-svg-icon="images/ic_cancel_48px.svg" md-colors="{fill: 'accent-500'}"></md-icon>
+		</md-button>
+	</md-card-actions>
+</md-card>

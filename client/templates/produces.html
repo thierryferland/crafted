@@ -1,0 +1,11 @@
+<md-subheader>
+	<ef-search items="produces" search-url="searchUrl" search-text="searchText"></ef-search>
+</md-subheader>
+<div layout="row" layout-wrap layout-align="center center">
+	<papi-produce-card ng-repeat="produce in produces | filter:searchText"></papi-produce-card>
+</div>
+<div layout="column" layout-align="end end">
+	<md-button ng-click="add(searchText)" class="md-accent md-raised">
+		Add
+	</md-button>
+</div>

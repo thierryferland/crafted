@@ -1,0 +1,29 @@
+<div layout="row"  layout-padding layout-align="center center">
+	<div layout="column" layout-margin md-whiteframe="3" class="epd-card">
+		<h1 style="text-align:center;">Sign In</h1>
+		<form name="signinForm" ng-submit="login()" class="ef-no-margin">
+			<md-input-container class="md-block">
+				<label>Email</label>
+				<md-icon md-svg-src="images/ic_email_24px.svg" class="email"></md-icon>
+				<input type="email" ng-model="user.email" ng-required="true" md-no-asterisk>
+			</md-input-container>
+			<md-input-container class="md-icon-float md-block">
+				<!-- Use floating label instead of placeholder -->
+				<label>Password</label>
+				<input type="password" ng-model="user.password" ng-required="true" md-no-asterisk>
+			</md-input-container>
+			<input type="submit" hidden>
+		</form>
+		<md-button class="md-raised md-accent" ng-click="login()">
+			Sign In
+		</md-button>
+		<md-divider></md-divider>
+		<md-button class="epd-btn-facebook" ng-click="authenticate('facebook')">
+			Sign in with Facebook
+		</md-button>
+		<span>Don't have an acount yet?
+			<md-button ng-click="signup()">
+				Sign up
+			</md-button> </span>
+	</div>
+</div>
