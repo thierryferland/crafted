@@ -51,7 +51,7 @@ beerSchema.set('toJSON', {
 });
 
 beerSchema.pre('remove', function(next) {
-	this.model('Picture').remove({
+	this.model('Picture').findOneAndRemove({
 		_id : this.image[0]
 	}, next);
 });

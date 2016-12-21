@@ -21,7 +21,7 @@
 		<md-card-title class="ef-no-padding">
 			<md-card-title-text>
 				<span ng-hide="beer.is_editing">{{beer.name}}</span>
-				<form name="beerForm" ng-submit="save($index, produce._id)" ng-show="beer.is_editing"  class="ef-no-margin">
+				<form name="beerForm" ng-submit="save($index, beer._id)" ng-show="beer.is_editing"  class="ef-no-margin">
 					<md-input-container ng-show="beer.is_editing" class="ef-no-margin" required md-no-asterisk>
 						<input ng-model="beer.name" aria-label="Beer">
 					</md-input-container>

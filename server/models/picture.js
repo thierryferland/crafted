@@ -1,22 +1,18 @@
 var mongoose = require('mongoose');
 var config = require('../config');
 
-var url_root = config.FAAS_BASE_URL + config.FAAS_API_URL + '/' + config.FAAS_API_VERSION;
+var url_root = config.FAAS_BASE_URL + config.IAPI_URL + '/' + config.IAPI_VERSION;
 
 var pictureSchema = new mongoose.Schema({
-	description : {
-		type : String,
-		required : false
-	},
-	image : {
-		data : Buffer,
-		contentType : String
-	}
+  description: { type: String, required: false },  
+  image: { data: Buffer, contentType: String },
+  small: { data: Buffer, contentType: String },
+  tiny: { data: Buffer, contentType: String }
 });
 
 pictureSchema.virtual('image_url').get(function() {
-	var url = url_root + '/image/id/' + this._id;
-	return url;
+  var url = url_root + '/image/id/' + this._id;
+  return url;
 });
 
 pictureSchema.virtual('url.original').get(function() {
@@ -29,12 +25,15 @@ pictureSchema.virtual('url.small').get(function() {
 	return url;
 });
 
-pictureSchema.set('toJSON', {
-	virtuals : true,
-	transform : function(doc, ret, options) {
-		delete ret.image;
-		return ret;
-	}
+pictureSchema.virtual('url.tiny').get(function() {
+	var url = url_root + '/image/tiny/id/' + this._id;
+	return url;
 });
 
-module.exports = pictureSchema; 
+pictureSchema.set('toJSON', {
+   virtuals: true,
+   transform: function(doc, ret, options) { delete ret.image; return ret; }
+});
+
+
+module.exports = pictureSchema;

@@ -3,7 +3,7 @@ exports.BeerCardController = function($scope, $http, $attrs, cbConfig, efSelectS
 	$scope.save = function($index, id) {
 		data = {
 			name : $scope.beers[$index].name,
-			image : $scope.beers[$index].image
+			image : [$scope.beers[$index].image[0]._id]
 		};
 		if (id) {
 			url = cbConfig.beer_url + '/beer/edit/' + id;
@@ -16,7 +16,9 @@ exports.BeerCardController = function($scope, $http, $attrs, cbConfig, efSelectS
 		} else {
 			$http.post(cbConfig.beer_url + '/beer/add', data).success(function(data) {
 				console.log('Answer sent!');
-				$scope.beers[$index] = data.beer;
+				$scope.beers[$index]._id = data.beer._id;
+				$scope.beers[$index].is_editing = false;
+				$scope.beers[$index].is_editing_image = false;
 			});
 		}
 	};

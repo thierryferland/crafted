@@ -12,7 +12,7 @@ exports.BeerCardController = function($scope, $http, $attrs, cbConfig, efSelectS
 	$scope.save = function($index, id) {
 		data = {
 			name : $scope.beers[$index].name,
-			image : $scope.beers[$index].image
+			image : [$scope.beers[$index].image[0]._id]
 		};
 		if (id) {
 			url = cbConfig.beer_url + '/beer/edit/' + id;
@@ -25,7 +25,9 @@ exports.BeerCardController = function($scope, $http, $attrs, cbConfig, efSelectS
 		} else {
 			$http.post(cbConfig.beer_url + '/beer/add', data).success(function(data) {
 				console.log('Answer sent!');
-				$scope.beers[$index] = data.beer;
+				$scope.beers[$index]._id = data.beer._id;
+				$scope.beers[$index].is_editing = false;
+				$scope.beers[$index].is_editing_image = false;
 			});
 		}
 	};
@@ -358,12 +360,12 @@ exports.SearchController = function($scope, cbConfig, $http) {
 
 };
 
-exports.PhotoUploadController = function($scope, $http, Upload) {
+exports.PhotoUploadController = function($scope, $http, Upload, cbConfig) {
 
 	//$scope.getPicture()
 	$scope.upload = function(file, description) {
 		Upload.upload({
-			url : '/api/v1/upload/image',
+			url : cbConfig.iapi_url + '/upload/image',
 			data : {
 				file : file,
 				'description' : description
@@ -742,7 +744,8 @@ app.config(function($authProvider) {
 
 app.constant('cbConfig', {
 	'papi_url' : '/papi/v1',
-	'beer_url' : '/beer/v1'
+	'beer_url' : '/beer/v1',
+	'iapi_url' : '/iapi/v1'
 });
 
 app.run(['$state', '$rootScope', '$window', '$mdMedia', '$mdDialog', '$auth',

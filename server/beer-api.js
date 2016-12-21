@@ -6,7 +6,6 @@ var request = require('request');
 var config = require('./config');
 var jwt = require('jwt-simple');
 var moment = require('moment');
-var fileUpload = require('express-fileupload');
 
 module.exports = function(wagner) {
 	var api = express.Router();
@@ -14,7 +13,6 @@ module.exports = function(wagner) {
 	api.use(bodyParser.urlencoded({
 		extended : true
 	}));
-	api.use(fileUpload());
 
 	/*
 	 |--------------------------------------------------------------------------
@@ -89,7 +87,6 @@ module.exports = function(wagner) {
 			tag.category = 'beer';
 			tag.save(function(error, tag) {
 				if (error) {
-					console.log(error.toString());
 					return res.status(status.INTERNAL_SERVER_ERROR).json({
 						error : error.toString()
 					});
@@ -128,7 +125,7 @@ module.exports = function(wagner) {
 		return function(req, res) {
 			Beer.findOne({
 				_id : req.params.id
-			}, function(error, beer) {
+			}).populate('image').exec(function(error, beer) {
 				if (error) {
 					return res.status(status.INTERNAL_SERVER_ERROR).json({
 						error : error.toString()
@@ -221,28 +218,6 @@ module.exports = function(wagner) {
 				res.json({
 					results : tags
 				});
-			});
-		};
-	}));
-
-	api.get('/image/id/:id', wagner.invoke(function(Picture) {
-		return function(req, res) {
-			Picture.findOne({
-				_id : req.params.id
-			}, function(error, picture) {
-				if (error) {
-					return res.status(status.INTERNAL_SERVER_ERROR).json({
-						error : error.toString()
-					});
-				}
-				if (!picture) {
-					return res.status(status.NOT_FOUND).json({
-						error : 'Not found'
-					});
-				}
-				//console.log(picture);
-				res.contentType(picture.image.contentType);
-				res.send(picture.image.data);
 			});
 		};
 	}));

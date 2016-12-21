@@ -89,7 +89,8 @@ app.config(function($authProvider) {
 
 app.constant('cbConfig', {
 	'papi_url' : '/papi/v1',
-	'beer_url' : '/beer/v1'
+	'beer_url' : '/beer/v1',
+	'iapi_url' : '/iapi/v1'
 });
 
 app.run(['$state', '$rootScope', '$window', '$mdMedia', '$mdDialog', '$auth',

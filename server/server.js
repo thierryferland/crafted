@@ -24,6 +24,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(config.FAAS_API_URL+'/'+config.FAAS_API_VERSION, require('./api')(wagner));
 app.use('/papi/v1', require('./produces-api')(wagner));
 app.use('/beer/v1', require('./beer-api')(wagner));
+app.use('/iapi/v1', require('./image-api')(wagner));
 app.use('/lib', express.static(path.join(__dirname, '../client/lib')));
 app.use('/bin', express.static(path.join(__dirname, '../client/bin')));
 app.use('/templates', express.static(path.join(__dirname, '../client/templates')));

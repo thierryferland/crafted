@@ -9,6 +9,8 @@ module.exports = {
   FAAS_BASE_URL: 'http://localhost:3000',
   FAAS_API_VERSION: 'v1',
   FAAS_API_URL: '/api',
+  IAPI_VERSION: 'v1',
+  IAPI_URL: '/iapi',
   //DEFAULT_IMAGE_ID: '5835d6e0d2b0397f63e6e822'
   DEFAULT_IMAGE_ID: '5835d18c00e075001bed2d0c'
 };

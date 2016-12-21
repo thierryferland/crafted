@@ -165,12 +165,12 @@ exports.SearchController = function($scope, cbConfig, $http) {
 
 };
 
-exports.PhotoUploadController = function($scope, $http, Upload) {
+exports.PhotoUploadController = function($scope, $http, Upload, cbConfig) {
 
 	//$scope.getPicture()
 	$scope.upload = function(file, description) {
 		Upload.upload({
-			url : '/api/v1/upload/image',
+			url : cbConfig.iapi_url + '/upload/image',
 			data : {
 				file : file,
 				'description' : description

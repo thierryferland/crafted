@@ -6,8 +6,6 @@ var request = require('request');
 var config = require('./config');
 var jwt = require('jwt-simple');
 var moment = require('moment');
-var fileUpload = require('express-fileupload');
-var lwip = require('lwip');
 
 module.exports = function(wagner) {
 	var api = express.Router();
@@ -15,7 +13,6 @@ module.exports = function(wagner) {
 	api.use(bodyParser.urlencoded({
 		extended : true
 	}));
-	api.use(fileUpload());
 
 	/*
 	 |--------------------------------------------------------------------------
@@ -54,53 +51,6 @@ module.exports = function(wagner) {
 		return function(req, res) {
 			User.findById(req.user, function(err, user) {
 				res.send(user);
-			});
-		};
-	}));
-
-	api.post('/upload/multimage', ensureAuthenticated, wagner.invoke(function(Picture) {
-		return function(req, res) {
-			console.log(req.body);
-			console.log(req.files.file);
-			//var imgPath = req.body.file.path;
-			var picture = new Picture({
-				description : req.body.description
-			});
-			picture.image.data = req.files['file[0]'].data;
-			picture.image.contentType = req.files['file[0]'].mimetype;
-			picture.save(function(error, picture) {
-				if (error) {
-					return res.status(status.INTERNAL_SERVER_ERROR).json({
-						error : error.toString()
-					});
-				}
-				console.log('img saved to mongo');
-				res.json({
-					image : picture
-				});
-			});
-		};
-	}));
-
-	api.post('/upload/image', ensureAuthenticated, wagner.invoke(function(Picture) {
-		return function(req, res) {
-			console.log(req.files.file);
-			//var imgPath = req.body.file.path;
-			var picture = new Picture({
-				description : req.body.description
-			});
-			picture.image.data = req.files.file.data;
-			picture.image.contentType = req.files.file.mimetype;
-			picture.save(function(error, picture) {
-				if (error) {
-					return res.status(status.INTERNAL_SERVER_ERROR).json({
-						error : error.toString()
-					});
-				}
-				console.log('img saved to mongo');
-				res.json({
-					image : picture
-				});
 			});
 		};
 	}));
@@ -235,72 +185,6 @@ module.exports = function(wagner) {
 					}
 					res.json(profile);
 				});
-			});
-		};
-	}));
-
-	api.get('/image/id/:id', wagner.invoke(function(Picture) {
-		return function(req, res) {
-			Picture.findOne({
-				_id : req.params.id
-			}, function(error, picture) {
-				if (error) {
-					return res.status(status.INTERNAL_SERVER_ERROR).json({
-						error : error.toString()
-					});
-				}
-				if (!picture) {
-					return res.status(status.NOT_FOUND).json({
-						error : 'Not found'
-					});
-				}
-				//console.log(picture);
-				res.contentType(picture.image.contentType);
-				res.send(picture.image.data);
-			});
-		};
-	}));
-
-	api.get('/image/small/id/:id', wagner.invoke(function(Picture) {
-		return function(req, res) {
-			Picture.findOne({
-				_id : req.params.id
-			}, function(error, picture) {
-				if (error) {
-					return res.status(status.INTERNAL_SERVER_ERROR).json({
-						error : error.toString()
-					});
-				}
-				if (!picture) {
-					return res.status(status.NOT_FOUND).json({
-						error : 'Not found'
-					});
-				}
-
-				lwip.open(picture.image.data, 'jpg', function(error, image) {
-					if (error) {
-						return res.status(status.INTERNAL_SERVER_ERROR).json({
-							error : error.toString()
-						});
-					}
-					image.cover(300,150, function(error, image) {
-						if (error) {
-							return res.status(status.INTERNAL_SERVER_ERROR).json({
-								error : error.toString()
-							});
-						};
-						image.toBuffer('jpg', function(err, buffer) {
-							if (error) {
-								return res.status(status.INTERNAL_SERVER_ERROR).json({
-									error : error.toString()
-								});
-							};
-							res.contentType(picture.image.contentType);
-							res.send(buffer);
-						});
-					});
-				});
-
 			});
 		};
 	}));
