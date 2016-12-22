@@ -37,9 +37,16 @@ produceSchema.set('toJSON', {
 });
 
 produceSchema.pre('remove', function(next) {
-	this.model('Picture').remove({
+	this.model('Picture').findOneAndRemove({
 		_id : this.image[0]
 	}, next);
+});
+
+produceSchema.pre('save', function(next) {
+	if (!this.image || this.image.length ==0) {
+		this.image.push(config.DEFAULT_IMAGE_ID);
+	};
+	next();
 });
 
 module.exports = produceSchema; 

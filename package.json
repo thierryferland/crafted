@@ -13,7 +13,7 @@
     "body-parser": "^1.15.0",
     "cors": "^2.7.1",
     "express": "4.12.3",
-    "express-fileupload": "0.0.5",
+    "express-fileupload": "^0.0.5",
     "gulp-clone": "^1.0.0",
     "jwt-simple": "^0.4.1",
     "lwip": "^0.0.9",

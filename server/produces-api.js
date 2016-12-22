@@ -42,7 +42,6 @@ module.exports = function(wagner) {
 			});
 		}
 		req.user = payload.sub;
-		console.log(req.user);
 		next();
 	}
 
@@ -51,7 +50,7 @@ module.exports = function(wagner) {
 		return function(req, res) {
 			Produce.find().sort({
 				_id : 1
-			}).limit(10).exec(function(error, produces) {
+			}).limit(10).populate('image', 'url').exec(function(error, produces) {
 				if (error) {
 					return res.status(status.INTERNAL_SERVER_ERROR).json({
 						error : error.toString()
@@ -69,13 +68,22 @@ module.exports = function(wagner) {
 			var produce = new Produce(req.body);
 			produce.save(function(error, produce) {
 				if (error) {
-					console.log(error.toString());
 					return res.status(status.INTERNAL_SERVER_ERROR).json({
 						error : error.toString()
 					});
 				}
-				res.json({
-					produce : produce
+				Produce.populate(produce, {
+					path : 'image',
+					select : 'url'
+				}, function(error, produce) {
+					if (error) {
+						return res.status(status.INTERNAL_SERVER_ERROR).json({
+							error : error.toString()
+						});
+					}
+					res.json({
+						produce : produce
+					});
 				});
 			});
 
@@ -108,7 +116,7 @@ module.exports = function(wagner) {
 		return function(req, res) {
 			Produce.findOne({
 				_id : req.params.id
-			}, function(error, produce) {
+			}).populate('image', 'url').exec(function(error, produce) {
 				if (error) {
 					return res.status(status.INTERNAL_SERVER_ERROR).json({
 						error : error.toString()
@@ -136,7 +144,7 @@ module.exports = function(wagner) {
 		return function(req, res) {
 			Produce.findOne({
 				name : req.params.name
-			}).exec(function(error, produce) {
+			}).populate('image', 'url').exec(function(error, produce) {
 				if (error) {
 					return res.status(status.INTERNAL_SERVER_ERROR).json({
 						error : error.toString()
@@ -169,7 +177,7 @@ module.exports = function(wagner) {
 			};
 			Produce.find(filter).sort({
 				_id : 1
-			}).limit(10).exec(function(error, produces) {
+			}).limit(10).populate('image', 'url').exec(function(error, produces) {
 				if (error) {
 					return res.status(status.INTERNAL_SERVER_ERROR).json({
 						error : error.toString()

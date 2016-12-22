@@ -56,4 +56,11 @@ beerSchema.pre('remove', function(next) {
 	}, next);
 });
 
+beerSchema.pre('save', function(next) {
+	if (!this.image || this.image.length ==0) {
+		this.image.push(config.DEFAULT_IMAGE_ID);
+	};
+	next();
+});
+
 module.exports = beerSchema;

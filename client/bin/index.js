@@ -10,9 +10,10 @@ exports.beerBeerCard = function() {
 exports.BeerCardController = function($scope, $http, $attrs, cbConfig, efSelectService) {
 
 	$scope.save = function($index, id) {
+		var image = $scope.beers[$index].image?[$scope.beers[$index].image[0]._id]:[];
 		data = {
 			name : $scope.beers[$index].name,
-			image : [$scope.beers[$index].image[0]._id]
+			image : image
 		};
 		if (id) {
 			url = cbConfig.beer_url + '/beer/edit/' + id;
@@ -25,9 +26,7 @@ exports.BeerCardController = function($scope, $http, $attrs, cbConfig, efSelectS
 		} else {
 			$http.post(cbConfig.beer_url + '/beer/add', data).success(function(data) {
 				console.log('Answer sent!');
-				$scope.beers[$index]._id = data.beer._id;
-				$scope.beers[$index].is_editing = false;
-				$scope.beers[$index].is_editing_image = false;
+				$scope.beers[$index] = data.beer;
 			});
 		}
 	};
@@ -437,25 +436,22 @@ exports.DropZoneController = function($scope, $http, efSelectService) {
 exports.ProduceCardController = function($scope, $http, efConfig) {
 
 	$scope.save = function($index, id) {
-		if ($scope.produces[$index].image.is_editing && $scope.image) {
-			$scope.produces[$index].image = [$scope.image.id];
-			$scope.produces[$index].image_url = $scope.image.image_url;
-		};
+		var image = $scope.produces[$index].image?[$scope.produces[$index].image[0]._id]:[];
 		data = {
 			name : $scope.produces[$index].name,
-			image : $scope.produces[$index].image
+			image : image
 		};
 		if (id) {
 			url = efConfig.papi_url + '/produce/edit/' + id;
-			$http.post(url, data).success(function(data) {
+			$http.post(url, data).then(function(resp) {
 				console.log('Answer sent!');
 				$scope.produces[$index].is_editing = false;
-				$scope.produces[$index].image.is_editing = false;
+				$scope.produces[$index].is_editing_image = false;
 			});
 		} else {
-			$http.post('/papi/v1/produce/add', data).success(function(data) {
+			$http.post('/papi/v1/produce/add', data).then(function(resp) {
 				console.log('Answer sent!');
-				$scope.produces[$index] = data.produce;
+				$scope.produces[$index] = resp.data.produce;
 			});
 		}
 	};
@@ -465,12 +461,12 @@ exports.ProduceCardController = function($scope, $http, efConfig) {
 	};
 
 	$scope.editImage = function($index) {
-		$scope.produces[$index].image.is_editing = true;
+		$scope.produces[$index].is_editing_image = true;
 	};
 
 	$scope.delete = function(produce) {
 		url = efConfig.papi_url + '/produce/delete/' + produce._id;
-		$http.post(url).success(function(resp) {
+		$http.post(url).then(function(resp) {
 			if (!resp.code) {
 				index = $scope.produces.indexOf(produce);
 				$scope.produces.splice(index, 1);
@@ -493,8 +489,8 @@ exports.ProducesController = function($scope, $http, efConfig) {
 	$scope.photo_upload_description = 'produce';
 	$scope.searchText = '';
 
-	$http.get(efConfig.papi_url + '/produce').success(function(data) {
-		$scope.produces = data.produces;
+	$http.get(efConfig.papi_url + '/produce').then(function(resp) {
+		$scope.produces = resp.data.produces;
 	});
 
 	$scope.add = function(text) {
@@ -502,9 +498,7 @@ exports.ProducesController = function($scope, $http, efConfig) {
 		$scope.produces.push({
 			'name' : text,
 			'is_editing' : true,
-			'image' : {
-				'is_editing' : true
-			}
+			'is_editing_image' : true
 		});
 	};
 

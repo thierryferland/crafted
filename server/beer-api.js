@@ -73,8 +73,18 @@ module.exports = function(wagner) {
 						error : error.toString()
 					});
 				}
-				res.json({
-					beer : beer
+				Beer.populate(beer, {
+					path : 'image',
+					select : 'url'
+				}, function(error, beer) {
+					if (error) {
+						return res.status(status.INTERNAL_SERVER_ERROR).json({
+							error : error.toString()
+						});
+					}
+					res.json({
+						beer : beer
+					});
 				});
 			});
 
