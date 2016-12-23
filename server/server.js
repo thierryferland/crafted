@@ -1,15 +1,25 @@
+/**For HTTP methods**/
 var express = require('express');
+/**For dependancy injection. Instead of importing the models in the APIs, we inject wagner**/
 var wagner = require('wagner-core');
+/**To create paths**/
 var path = require('path');
+/**To generate a JSON web token**/
 var jwt = require('jwt-simple');
+/**To make HTTP calls, to facebook for instance**/
 var request = require('request');
+/**To extract data from the body of a request more easily**/
 var bodyParser = require('body-parser');
+/**For logging request details. Request are listed in the terminal when developping**/
 var logger = require('morgan');
+/**To enable cross-origin HTTP request, i.e. a client request sent from a different server**/
 var cors = require('cors');
+/**Interface to mongodb making it easier to query, validate and more**/
 var mongoose = require('mongoose');
+/**For expiration datetime of the JSON web token**/
 var moment = require('moment');
-var config = require('./config');
 
+var config = require('./config');
 models = require('./models/models')(wagner);
 
 var User = models.User;
@@ -38,6 +48,7 @@ app.use('/angular-aria', express.static(path.join(__dirname, '../node_modules/an
 app.use('/satellizer', express.static(path.join(__dirname, '../node_modules/satellizer')));
 app.use('/ng-file-upload', express.static(path.join(__dirname, '../node_modules/ng-file-upload/dist')));
 app.use('/ng-html5dragdrop', express.static(path.join(__dirname, '../node_modules/ng-html5dragdrop/dist')));
+app.use('/angular-ui-router', express.static(path.join(__dirname, '../node_modules/angular-ui-router/release')));
 
 /*
  |--------------------------------------------------------------------------

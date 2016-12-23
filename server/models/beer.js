@@ -23,6 +23,10 @@ var beerSchema = new mongoose.Schema({
 		type : mongoose.Schema.Types.ObjectId,
 		ref : 'Producer'
 	}],
+	user : [{
+		type : mongoose.Schema.Types.ObjectId,
+		ref : 'User'
+	}]
 });
 
 beerSchema.virtual('getDescription').get(function() {

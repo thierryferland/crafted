@@ -1,11 +1,11 @@
 var express = require('express');
+/**To send status by name instead of ny number**/
 var status = require('http-status');
-var fs = require('fs');
 var bodyParser = require('body-parser');
-var request = require('request');
-var config = require('./config');
 var jwt = require('jwt-simple');
 var moment = require('moment');
+
+var config = require('./config');
 
 module.exports = function(wagner) {
 	var api = express.Router();
